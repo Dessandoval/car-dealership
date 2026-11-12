@@ -2,7 +2,7 @@ package com.pluralsight;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Dealership {
 
@@ -42,12 +42,38 @@ public class Dealership {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Vehicle> getVehiclesByPrice(BigDecimal min, BigDecimal max) {
+    public ArrayList<Vehicle> getVehiclesByPrice(BigDecimal min, BigDecimal max) {
         return null;
     }
 
-    public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
+    public ArrayList<Vehicle> getVehiclesByMakeModel(String make, String model) {
         return null;
     }
 
+    public ArrayList<Vehicle> getAllVehicles() {
+        return new ArrayList<>(inventory);
+    }
+
+    public ArrayList<Vehicle> getVehiclesByYear(int min, int max) {
+        return null;
+    }
+
+    public ArrayList<Vehicle> getVehiclesByColor(String color) {
+        return null;
+    }
+
+    public ArrayList<Vehicle> getVehiclesByMileage(int min, int max) {
+        return null;
+    }
+
+    public ArrayList<Vehicle> getVehiclesByType(String vehicleType) {
+        return null;
+    }
+
+    public void addVehicle(Vehicle vehicle) {
+        inventory.add(vehicle);
+    }
+
+    public void removeVehicle(Vehicle vehicle) {
+    }
 }

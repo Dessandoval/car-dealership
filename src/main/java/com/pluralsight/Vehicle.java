@@ -87,4 +87,15 @@ public class Vehicle {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+    @Override
+    public String toString() {
+        return "==========================================\n" +
+                "  " + year + " " + make + " " + model + "\n" +
+                "  " + vehicleType + " | " + color + "\n" +
+                "------------------------------------------\n" +
+                "  VIN:      " + vin + "\n" +
+                "  Odometer: " + odometer + " mi\n" +
+                "  Price:    $" + price + "\n" +
+                "==========================================";
+    }
 }
