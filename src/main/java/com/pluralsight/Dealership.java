@@ -1,6 +1,8 @@
 package com.pluralsight;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Dealership {
 
@@ -39,4 +41,13 @@ public class Dealership {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public List<Vehicle> getVehiclesByPrice(BigDecimal min, BigDecimal max) {
+        return null;
+    }
+
+    public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
+        return null;
+    }
+
 }
