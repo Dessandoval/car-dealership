@@ -1,6 +1,8 @@
 package com.pluralsight;
 
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -21,6 +23,24 @@ public class UserInterface {
 
         while (true) {
             displayMenu();
+            int choice = Integer.parseInt(scanner.nextLine());
+
+            switch (choice) {
+                case 1 -> processGetByPriceRequest();
+                case 2 -> processGetByMakeModelRequest();
+                case 3 -> processGetByYearRequest();
+                case 4 -> processGetByColorRequest();
+                case 5 -> processGetByMileageRequest();
+                case 6 -> processGetByVehicleTypeRequest();
+                case 7 -> processGetAllVehiclesRequest();
+                case 8 -> processAddVehicleRequest();
+                case 9 -> processRemoveVehicleRequest();
+                case 99 -> {
+                    System.out.println("Goodbye!");
+                    return;
+                }
+                default -> System.out.println("Invalid option. Try again.");
+            }
         }
     }
 
@@ -39,4 +59,108 @@ public class UserInterface {
         System.out.print("Enter choice: ");
     }
 
+    private void displayVehicles(ArrayList<Vehicle> vehicles) {
+        if (vehicles == null || vehicles.isEmpty()) {
+            System.out.println("No vehicles found.");
+            return;
+        }
+        for (Vehicle vehicle : vehicles) {
+            System.out.printf("VIN: %d | %d %s %s | %s | %s | %d miles | $%.2f%n",
+                    vehicle.getVin(), vehicle.getYear(), vehicle.getMake(), vehicle.getModel(),
+                    vehicle.getVehicleType(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice());
+        }
+    }
+
+    public void processGetAllVehiclesRequest() {
+        displayVehicles(dealership.getAllVehicles());
+    }
+
+    public void processGetByPriceRequest() {
+        System.out.print("Min price: ");
+        BigDecimal min = new BigDecimal(scanner.nextLine());
+        System.out.print("Max price: ");
+        BigDecimal max = new BigDecimal(scanner.nextLine());
+        displayVehicles(dealership.getVehiclesByPrice(min, max));
+    }
+
+    public void processGetByMakeModelRequest() {
+        System.out.print("Make: ");
+        String make = scanner.nextLine();
+        System.out.print("Model: ");
+        String model = scanner.nextLine();
+        displayVehicles(dealership.getVehiclesByMakeModel(make, model));
+    }
+
+    public void processGetByYearRequest() {
+        System.out.print("Min year: ");
+        int min = Integer.parseInt(scanner.nextLine());
+        System.out.print("Max year: ");
+        int max = Integer.parseInt(scanner.nextLine());
+        displayVehicles(dealership.getVehiclesByYear(min, max));
+    }
+
+    public void processGetByColorRequest() {
+        System.out.print("Color: ");
+        String color = scanner.nextLine();
+        displayVehicles(dealership.getVehiclesByColor(color));
+    }
+
+    public void processGetByMileageRequest() {
+        System.out.print("Min mileage: ");
+        int min = Integer.parseInt(scanner.nextLine());
+        System.out.print("Max mileage: ");
+        int max = Integer.parseInt(scanner.nextLine());
+        displayVehicles(dealership.getVehiclesByMileage(min, max));
+    }
+
+    public void processGetByVehicleTypeRequest() {
+        System.out.print("Vehicle type: ");
+        String type = scanner.nextLine();
+        displayVehicles(dealership.getVehiclesByType(type));
+    }
+
+    public void processAddVehicleRequest() {
+        System.out.print("VIN: ");
+        int vin = Integer.parseInt(scanner.nextLine());
+        System.out.print("Year: ");
+        int year = Integer.parseInt(scanner.nextLine());
+        System.out.print("Make: ");
+        String make = scanner.nextLine();
+        System.out.print("Model: ");
+        String model = scanner.nextLine();
+        System.out.print("Type: ");
+        String type = scanner.nextLine();
+        System.out.print("Color: ");
+        String color = scanner.nextLine();
+        System.out.print("Odometer: ");
+        int odometer = Integer.parseInt(scanner.nextLine());
+        System.out.print("Price: ");
+        BigDecimal price = new BigDecimal(scanner.nextLine());
+
+        Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, odometer, price);
+        dealership.addVehicle(vehicle);
+        new DealershipFileManager().saveDealership(dealership);
+        System.out.println("Vehicle added successfully!");
+    }
+
+    public void processRemoveVehicleRequest() {
+        System.out.print("Enter VIN to remove: ");
+        int vin = Integer.parseInt(scanner.nextLine());
+
+        Vehicle target = null;
+        for (Vehicle vehicle : dealership.getAllVehicles()) {
+            if (vehicle.getVin() == vin) {
+                target = vehicle;
+                break;
+            }
+        }
+
+        if (target != null) {
+            dealership.removeVehicle(target);
+            new DealershipFileManager().saveDealership(dealership);
+            System.out.println("Vehicle removed successfully!");
+        } else {
+            System.out.println("Vehicle not found.");
+        }
+    }
 }
