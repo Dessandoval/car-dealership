@@ -145,16 +145,15 @@ public class UserInterface {
         System.out.print("Enter VIN to remove: ");
         int vin = Integer.parseInt(scanner.nextLine());
 
-        Vehicle target = null;
+        Vehicle vehicleVin = null;
         for (Vehicle vehicle : dealership.getAllVehicles()) {
             if (vehicle.getVin() == vin) {
-                target = vehicle;
-                break;
+                vehicleVin = vehicle;
             }
         }
 
-        if (target != null) {
-            dealership.removeVehicle(target);
+        if (vehicleVin != null) {
+            dealership.removeVehicle(vehicleVin);
             new DealershipFileManager().saveDealership(dealership);
             System.out.println("Vehicle removed successfully!");
         } else {
