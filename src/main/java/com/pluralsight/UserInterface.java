@@ -23,7 +23,14 @@ public class UserInterface {
 
         while (true) {
             displayMenu();
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice;
+            try {
+                choice = Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid number.");
+                continue;
+            }
+
 
             switch (choice) {
                 case 1 -> processGetByPriceRequest();
