@@ -20,7 +20,6 @@ An App to manage dealership vehicle inventory, allows user to search detail of v
 
 ![The home screen](images/home-screen.png)
 
-![Another screen](images/[another-screen].png)
 
 ## Interesting code
 
