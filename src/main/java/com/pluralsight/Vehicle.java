@@ -95,7 +95,7 @@ public class Vehicle {
                 "------------------------------------------\n" +
                 "  VIN:      " + vin + "\n" +
                 "  Odometer: " + odometer + " mi\n" +
-                "  Price:    $" + price + "\n" +
+                "  Price:    " + String.format("$%,.2f", price) + "\n" +
                 "==========================================";
     }
 }
